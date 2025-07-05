@@ -1,7 +1,7 @@
+import { RouterProvider } from "react-router";
+
+import { router } from "./router";
+
 export function App() {
-  return (
-    <main>
-      <h1>Dellocred CRM</h1>
-    </main>
-  );
+  return <RouterProvider router={router} />;
 }
