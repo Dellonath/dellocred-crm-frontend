@@ -1,0 +1,120 @@
+:root {
+  --primary-background: #05132A; /* Dark blue from dellocred bluewhite.png */
+  --secondary-background: #05132A; /* Slightly lighter dark blue for cards/inputs */
+  --text-color: #FFFFFF;
+  --accent-color: #00A3FF; /* Vibrant blue from dellocred icon.png */
+  --hover-color: #007ACC; /* Darker accent for hover states */
+  --border-color: #3C5B7F; /* A softer border color */
+  --error-color: #D32F2F; /* Standard error red */
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--primary-background);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh; /* Use min-height for better content flow */
+}
+
+.sidebar {
+  width: 250px; /* Slightly wider sidebar */
+  background-color: var(--secondary-background);
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 1.5rem; /* Increased padding */
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+  border-right: 1px solid var(--border-color);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4rem; /* More space below logo */
+  padding-left: 0.5rem;
+}
+
+.logo-icon {
+  height: 50px; /* Larger logo icon */
+  margin-right: 1rem;
+}
+
+.brand-text {
+  font-size: 2rem; /* Larger brand text */
+  font-weight: 600; /* Semi-bold */
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Space between nav links */
+}
+
+.nav-link { /* Renamed from .nav-links a */
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem; /* More rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  background-color: var(--hover-color);
+  color: var(--text-color); /* Keep text white on hover for better contrast */
+  transform: translateX(5px); /* Slight hover effect */
+}
+
+.nav-link.active { /* For active link styling (can be added with NavLink from react-router-dom) */
+    background-color: var(--accent-color);
+    color: var(--primary-background); /* Dark text on accent background */
+    font-weight: bold;
+}
+
+.nav-link svg { /* If you add icons using SVG */
+    margin-right: 0.8rem;
+}
+
+.main-content {
+  flex: 1;
+  padding: 3rem 4rem; /* Increased padding */
+  overflow-y: auto; /* Enable scrolling for main content if it overflows */
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.home-logo {
+  max-width: 350px; /* Adjust size as needed */
+  height: auto;
+  margin-bottom: 3rem;
+}
+
+h1 {
+  font-size: 2.8rem; /* Larger headings */
+  margin-bottom: 1.5rem;
+  color: var(--accent-color);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+p {
+  font-size: 1.4rem;
+  max-width: 800px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}

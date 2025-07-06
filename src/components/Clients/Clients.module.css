@@ -1,0 +1,107 @@
+/* Client Page Specific Styles for Clients.tsx */
+.page-content {
+  padding: 2.5rem;
+  color: var(--text-color);
+}
+
+.page-title {
+  font-size: 2.8rem;
+  color: var(--accent-color);
+  margin-bottom: 2.5rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Search Card */
+.search-card {
+  /* Inherits .card styles from global.css */
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+/* Active Clients List Table */
+.active-clients-list-card {
+  /* Inherits .card styles from global.css */
+  margin-top: 2rem;
+}
+
+.clients-table-container {
+  overflow-x: auto;
+}
+
+.clients-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.clients-table th,
+.clients-table td {
+  text-align: left;
+  padding: 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.clients-table th {
+  background-color: var(--primary-background);
+  color: var(--accent-color);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clients-table tr:hover {
+  background-color: rgba(0, 163, 255, 0.1);
+}
+
+.clients-table tbody tr {
+    background-color: var(--secondary-background);
+    border-radius: 0.8rem;
+    overflow: hidden;
+}
+
+.clients-table tbody tr td:first-child {
+    border-top-left-radius: 0.8rem;
+    border-bottom-left-radius: 0.8rem;
+}
+
+.clients-table tbody tr td:last-child {
+    border-top-right-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.2rem;
+  }
+
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-form input {
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .clients-table th,
+  .clients-table td {
+      padding: 0.8rem;
+      font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+}
+

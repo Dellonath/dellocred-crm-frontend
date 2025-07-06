@@ -1,0 +1,69 @@
+/* Styles for ClientDetails.tsx */
+.client-found-display {
+  display: flex;
+  gap: 2rem; /* Space between the two main containers */
+  margin-top: 2rem;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.client-details-card {
+  flex: 1; /* Both containers take equal space */
+  min-width: 380px; /* Minimum width before wrapping */
+  /* Inherits .card styles from global.css */
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Style for each item within the grid */
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-item strong {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1em; /* Smaller label */
+  margin-bottom: 0.2rem; /* Space between label and input */
+}
+
+.detail-item span { /* For read-only fields */
+  font-size: 1em;
+  color: var(--text-color);
+  padding: 0.5rem 0; /* Add padding for consistency with inputs */
+}
+
+.editable-field {
+  /* Inherits from global .input-field */
+  width: 100%; /* Ensure inputs take full width of their grid cell */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-top: 0; /* Override any default margin */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) { /* Adjust breakpoint for two columns */
+    .client-found-display {
+        flex-direction: column; /* Stack columns on smaller screens */
+        gap: 1.5rem;
+    }
+
+    .client-details-card {
+        min-width: unset; /* Remove min-width to allow full width */
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+  .detail-grid {
+      grid-template-columns: 1fr; /* Stack details on very small screens */
+  }
+}
