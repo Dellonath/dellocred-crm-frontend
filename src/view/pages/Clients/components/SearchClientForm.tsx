@@ -6,9 +6,9 @@ export function SearchClientForm() {
     <form className="flex gap-2">
       <InputMask
         label="Digite o CPF do cliente"
-        mask="999.999.999-99"
+        mask="DDD.DDD.DDD-DD"
         replacement={{
-          9: /\d/
+          D: /\d/
         }}
         labelClassName="bg-primary-foreground"
       />
