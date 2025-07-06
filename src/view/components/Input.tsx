@@ -29,13 +29,7 @@ export function Input({
         </span>
       </label>
 
-      <ShadcnInput
-        id={id}
-        type="email"
-        placeholder=" "
-        className={className}
-        {...props}
-      />
+      <ShadcnInput id={id} placeholder=" " className={className} {...props} />
     </div>
   );
 }
