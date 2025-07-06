@@ -7,7 +7,9 @@ export function DashboardLayout() {
     <div className="flex gap-1">
       <Sidebar />
 
-      <Outlet />
+      <div className="w-full">
+        <Outlet />
+      </div>
     </div>
   );
 }
