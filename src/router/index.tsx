@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 
 import { DashboardLayout } from "../view/layouts/Dashboard";
+import { Clients } from "../view/pages/Clients";
 import { Home } from "../view/pages/Home";
 
 export const router = createBrowserRouter([
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/clientes",
-        element: <Home />
+        element: <Clients />
       }
     ]
   }
