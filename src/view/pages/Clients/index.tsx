@@ -16,7 +16,7 @@ const items: Client[] = Array.from({ length: 15 }, (_, i) => ({
 
 export function Clients() {
   return (
-    <main className="mx-auto mt-24 w-7xl space-y-8">
+    <main className="mx-auto mt-24 w-full max-w-7xl space-y-8 px-6">
       <h2 className="text-center text-4xl">Gerenciar clientes</h2>
 
       <div className="bg-primary-foreground w-full space-y-4 rounded-xl px-4 py-5">

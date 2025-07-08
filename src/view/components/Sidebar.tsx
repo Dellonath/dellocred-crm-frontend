@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 
 export function Sidebar() {
   return (
-    <aside className="bg-primary-foreground h-dvh w-64 space-y-8 px-4 py-8">
+    <aside className="bg-primary-foreground sticky top-0 h-dvh w-full max-w-64 min-w-48 space-y-8 px-4 py-8">
       <img src={dellocredIcon} alt="" className="mx-auto w-full" />
 
       <nav>
