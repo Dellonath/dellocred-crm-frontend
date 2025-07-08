@@ -30,7 +30,21 @@ export default tseslint.config(
         { allowConstantExport: true }
       ],
       "simple-import-sort/imports": "error",
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_"
+        }
+      ],
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          selector: "interface",
+          format: ["PascalCase"]
+        }
+      ]
     }
   }
 );
