@@ -1,4 +1,5 @@
 import type { Client } from "@/app/entities/Client";
+import { Pagination } from "@/view/components/Pagination";
 
 import { ClientsTable } from "./components/ClientsTable";
 import { SearchClientForm } from "./components/SearchClientForm";
@@ -23,6 +24,8 @@ export function Clients() {
         <SearchClientForm />
 
         <ClientsTable items={items} />
+
+        <Pagination totalPages={10} />
       </div>
     </main>
   );
