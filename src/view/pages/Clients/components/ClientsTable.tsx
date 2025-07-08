@@ -32,23 +32,23 @@ export function ClientsTable({ items }: ClientsTableProps) {
         </TableHeader>
         <TableBody>
           {items.map((item) => (
-            <TableRow key={item.id}>
+            <TableRow key={item.uuid}>
               <TableCell className="w-32 py-2 font-medium">
-                {item.cpf}
+                {item.govId}
               </TableCell>
-              <TableCell className="w-44 py-2">{item.name}</TableCell>
+              <TableCell className="w-44 py-2">{`${item.firstName} ${item.lastName}`}</TableCell>
               <TableCell className="w-32 py-2">{item.email}</TableCell>
-              <TableCell className="w-24 py-2">{item.phone}</TableCell>
+              <TableCell className="w-24 py-2">{item.phoneNumber}</TableCell>
               <TableCell className="w-16 py-2">{item.gender}</TableCell>
-              <TableCell className="py-2">{item.address}</TableCell>
+              <TableCell className="py-2">{`${item.city}/${item.state}`}</TableCell>
               <TableCell className="w-24 py-2">
                 <Badge
                   className={cn(
-                    item.status === "Inactive" &&
+                    !item.isActive &&
                       "bg-muted-foreground/60 text-primary-foreground"
                   )}
                 >
-                  {item.status}
+                  {item.isActive ? "Ativo" : "Inativo"}
                 </Badge>
               </TableCell>
             </TableRow>
