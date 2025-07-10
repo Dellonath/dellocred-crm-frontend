@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router";
 
+import { NotFound } from "@/view/pages/404";
+
 import { DashboardLayout } from "../view/layouts/Dashboard";
 import { Clients } from "../view/pages/Clients";
 import { Home } from "../view/pages/Home";
@@ -18,5 +20,9 @@ export const router = createBrowserRouter([
         element: <Clients />
       }
     ]
+  },
+  {
+    path: "*",
+    element: <NotFound />
   }
 ]);
