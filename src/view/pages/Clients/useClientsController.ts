@@ -31,10 +31,29 @@ export function useClientsController() {
       enabled: !!govIdSearchParam
     });
 
+  const hasActiveClients =
+    !!activeClientsData &&
+    activeClientsData.clients.length > 0 &&
+    !isFetchingActiveClients;
+  const hasClientWithGovIdData =
+    !!clientWithGovIdData &&
+    !!clientWithGovIdData.client &&
+    !isFetchingClientWithGovId;
+
+  const shouldShowLoadingElement =
+    isFetchingActiveClients || isFetchingClientWithGovId;
+  const shouldShowClientData = hasActiveClients || hasClientWithGovIdData;
+  const shouldShowRegisterClientForm =
+    !hasActiveClients &&
+    !isFetchingActiveClients &&
+    !isFetchingClientWithGovId &&
+    !hasClientWithGovIdData;
+
   return {
     activeClients: activeClientsData?.clients ?? [],
-    isFetchingActiveClients,
     clientWithGovIdData: clientWithGovIdData?.client,
-    isFetchingClientWithGovId
+    shouldShowLoadingElement,
+    shouldShowClientData,
+    shouldShowRegisterClientForm
   };
 }

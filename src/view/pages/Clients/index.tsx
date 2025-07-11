@@ -1,22 +1,38 @@
+import { LoaderCircle } from "lucide-react";
+
 import { Pagination } from "@/view/components/Pagination";
 
 import { ClientsTable } from "./components/ClientsTable";
+import { RegisterClientForm } from "./components/RegisterClientForm";
 import { SearchClientForm } from "./components/SearchClientForm";
 import { useClientsController } from "./useClientsController";
 
 export function Clients() {
-  const { activeClients } = useClientsController();
+  const {
+    activeClients,
+    shouldShowClientData,
+    shouldShowLoadingElement,
+    shouldShowRegisterClientForm
+  } = useClientsController();
 
   return (
     <main className="mx-auto mt-24 w-full max-w-7xl space-y-8 px-6">
       <h2 className="text-center text-4xl">Gerenciar clientes</h2>
 
-      <div className="bg-primary-foreground w-full space-y-4 rounded-xl px-4 py-5">
+      <div className="bg-primary-foreground w-full space-y-6 rounded-xl px-4 py-5">
         <SearchClientForm />
 
-        <ClientsTable items={activeClients} />
+        {shouldShowLoadingElement && (
+          <div className="flex h-80 items-center justify-center">
+            <LoaderCircle className="size-6 animate-spin" />
+          </div>
+        )}
 
-        <Pagination totalPages={10} />
+        {shouldShowRegisterClientForm && <RegisterClientForm />}
+
+        {shouldShowClientData && <ClientsTable items={activeClients} />}
+
+        {shouldShowClientData && <Pagination totalPages={10} />}
       </div>
     </main>
   );
