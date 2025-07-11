@@ -1,4 +1,4 @@
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, SearchX } from "lucide-react";
 
 import { Pagination } from "@/view/components/Pagination";
 
@@ -9,10 +9,12 @@ import { useClientsController } from "./useClientsController";
 
 export function Clients() {
   const {
-    activeClients,
+    clients,
     shouldShowClientData,
     shouldShowLoadingElement,
-    shouldShowRegisterClientForm
+    shouldShowRegisterClientForm,
+    shouldShowEmptyView,
+    shouldShowPagination
   } = useClientsController();
 
   return (
@@ -28,11 +30,35 @@ export function Clients() {
           </div>
         )}
 
+        {shouldShowEmptyView && (
+          <div className="flex h-80 flex-col items-center justify-center gap-5 px-4 py-2">
+            <SearchX className="text-muted-foreground size-16" />
+
+            <div className="space-y-1">
+              <h3 className="text-muted-foreground text-xl font-bold">
+                Nenhum cliente ativo foi encontrado em nosso sistema.
+              </h3>
+
+              <p className="text-muted-foreground max-w-lg text-center text-sm">
+                Você pode tentar buscar por <strong>CPF</strong> ou{" "}
+                <span
+                  role="button"
+                  onClick={() => alert("FOI!")}
+                  className="cursor-pointer underline"
+                >
+                  clicar aqui
+                </span>{" "}
+                para registrar um novo cliente.
+              </p>
+            </div>
+          </div>
+        )}
+
         {shouldShowRegisterClientForm && <RegisterClientForm />}
 
-        {shouldShowClientData && <ClientsTable items={activeClients} />}
+        {shouldShowClientData && <ClientsTable items={clients} />}
 
-        {shouldShowClientData && <Pagination totalPages={10} />}
+        {shouldShowPagination && <Pagination totalPages={10} />}
       </div>
     </main>
   );

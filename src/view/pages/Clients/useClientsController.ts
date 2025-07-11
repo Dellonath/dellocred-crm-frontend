@@ -31,29 +31,31 @@ export function useClientsController() {
       enabled: !!govIdSearchParam
     });
 
-  const hasActiveClients =
-    !!activeClientsData &&
-    activeClientsData.clients.length > 0 &&
-    !isFetchingActiveClients;
-  const hasClientWithGovIdData =
-    !!clientWithGovIdData &&
-    !!clientWithGovIdData.client &&
-    !isFetchingClientWithGovId;
+  const isLoading = isFetchingActiveClients || isFetchingClientWithGovId;
 
-  const shouldShowLoadingElement =
-    isFetchingActiveClients || isFetchingClientWithGovId;
-  const shouldShowClientData = hasActiveClients || hasClientWithGovIdData;
+  const hasActiveClients = !!activeClientsData?.clients?.length;
+  const hasClientByGovId = !!clientWithGovIdData?.client;
+
+  const shouldShowClientData =
+    (govIdSearchParam ? hasClientByGovId : hasActiveClients) && !isLoading;
+
   const shouldShowRegisterClientForm =
-    !hasActiveClients &&
-    !isFetchingActiveClients &&
-    !isFetchingClientWithGovId &&
-    !hasClientWithGovIdData;
+    !!govIdSearchParam && !isLoading && !hasClientByGovId;
+  const shouldShowEmptyView =
+    !hasActiveClients && !govIdSearchParam && !isLoading;
+
+  const clients = hasClientByGovId
+    ? [clientWithGovIdData.client]
+    : !govIdSearchParam
+      ? (activeClientsData?.clients ?? [])
+      : [];
 
   return {
-    activeClients: activeClientsData?.clients ?? [],
-    clientWithGovIdData: clientWithGovIdData?.client,
-    shouldShowLoadingElement,
+    clients,
+    shouldShowLoadingElement: isLoading,
     shouldShowClientData,
-    shouldShowRegisterClientForm
+    shouldShowRegisterClientForm,
+    shouldShowEmptyView,
+    shouldShowPagination: clients.length > 10
   };
 }
