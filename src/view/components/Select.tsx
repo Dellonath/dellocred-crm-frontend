@@ -1,6 +1,8 @@
 import { useId } from "react";
 import { twMerge } from "tailwind-merge";
 
+import { cn } from "@/app/lib/utils";
+
 import {
   Select as ShadcnSelect,
   SelectContent,
@@ -15,14 +17,20 @@ interface SelectProps {
     label: string;
     value: string;
   }[];
+  containerClassName?: string;
   labelClassName?: string;
 }
 
-export function Select({ label, options, labelClassName }: SelectProps) {
+export function Select({
+  label,
+  options,
+  containerClassName,
+  labelClassName
+}: SelectProps) {
   const id = useId();
 
   return (
-    <div className="group relative w-full">
+    <div className={cn("group relative w-full", containerClassName)}>
       <label
         htmlFor={id}
         className={twMerge(
