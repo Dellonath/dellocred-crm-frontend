@@ -7,6 +7,7 @@ import { cn } from "@/app/lib/utils";
 interface InputCurrencyProps extends ComponentProps<typeof NumericFormat> {
   label: string;
   error?: string;
+  containerClassName?: string;
   labelClassName?: string;
 }
 
@@ -14,13 +15,14 @@ export function InputCurrency({
   label,
   error,
   className,
+  containerClassName,
   labelClassName,
   ...props
 }: InputCurrencyProps) {
   const id = useId();
 
   return (
-    <div className="w-full space-y-2">
+    <div className={cn("w-full space-y-2", containerClassName)}>
       <div className="group relative w-full">
         <label
           htmlFor={id}

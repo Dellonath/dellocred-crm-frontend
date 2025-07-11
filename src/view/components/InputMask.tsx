@@ -12,6 +12,7 @@ interface InputMaskProps extends ComponentProps<"input"> {
   mask: string;
   replacement: string | Replacement;
   error?: string;
+  containerClassName?: string;
   labelClassName?: string;
 }
 
@@ -22,13 +23,14 @@ export function InputMask({
   defaultValue,
   error,
   className,
+  containerClassName,
   labelClassName,
   ...props
 }: InputMaskProps) {
   const id = useId();
 
   return (
-    <div className="w-full space-y-2">
+    <div className={cn("w-full space-y-2", containerClassName)}>
       <div className="group relative w-full">
         <label
           htmlFor={id}
