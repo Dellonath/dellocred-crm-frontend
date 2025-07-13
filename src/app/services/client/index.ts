@@ -1,7 +1,5 @@
-import { getActiveClients } from "./getActiveClients";
-import { getClientByGovId } from "./getClientByGovId";
+import { getClients } from "./getClients";
 
 export const clientService = {
-  getActiveClients,
-  getClientByGovId
+  getClients
 };

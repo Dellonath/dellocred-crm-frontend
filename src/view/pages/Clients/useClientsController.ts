@@ -11,48 +11,28 @@ export function useClientsController() {
 
   const currentPage = pageSearchParam ? Number(pageSearchParam) : 1;
 
-  const { data: activeClientsData, isFetching: isFetchingActiveClients } =
-    useQuery({
-      queryKey: ["clients", "actives", currentPage],
-      queryFn: () =>
-        clientService.getActiveClients({
-          page: currentPage
-        }),
-      enabled: !govIdSearchParam
-    });
+  const { data: clientsData, isFetching: isFetchingClients } = useQuery({
+    queryKey: ["clients", currentPage, govIdSearchParam],
+    queryFn: () =>
+      clientService.getClients({
+        page: currentPage
+      }),
+    enabled: !govIdSearchParam
+  });
 
-  const { data: clientWithGovIdData, isFetching: isFetchingClientWithGovId } =
-    useQuery({
-      queryKey: ["clients", "govId", govIdSearchParam],
-      queryFn: () =>
-        clientService.getClientByGovId({
-          govId: govIdSearchParam!
-        }),
-      enabled: !!govIdSearchParam
-    });
+  const hasClients = !!clientsData?.clients?.length;
 
-  const isLoading = isFetchingActiveClients || isFetchingClientWithGovId;
-
-  const hasActiveClients = !!activeClientsData?.clients?.length;
-  const hasClientByGovId = !!clientWithGovIdData?.client;
-
-  const shouldShowClientData =
-    (govIdSearchParam ? hasClientByGovId : hasActiveClients) && !isLoading;
-
-  const shouldShowRegisterClientForm =
-    !!govIdSearchParam && !isLoading && !hasClientByGovId;
+  const shouldShowClientData = hasClients && !isFetchingClients;
   const shouldShowEmptyView =
-    !hasActiveClients && !govIdSearchParam && !isLoading;
+    !isFetchingClients && !!govIdSearchParam && !hasClients;
+  const shouldShowRegisterClientForm =
+    !!govIdSearchParam && !isFetchingClients && !shouldShowEmptyView;
 
-  const clients = hasClientByGovId
-    ? [clientWithGovIdData.client]
-    : !govIdSearchParam
-      ? (activeClientsData?.clients ?? [])
-      : [];
+  const clients = clientsData?.clients || [];
 
   return {
     clients,
-    shouldShowLoadingElement: isLoading,
+    shouldShowLoadingElement: isFetchingClients,
     shouldShowClientData,
     shouldShowRegisterClientForm,
     shouldShowEmptyView,
