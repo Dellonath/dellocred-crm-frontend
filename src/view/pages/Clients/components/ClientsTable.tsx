@@ -1,6 +1,7 @@
 import type { Client } from "@/app/entities/Client";
 import { cn } from "@/app/lib/utils";
 import { formatGovId } from "@/app/utils/formatGovId";
+import { formatPhoneNumber } from "@/app/utils/formatPhoneNumber";
 import { Badge } from "@/view/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/view/components/ui/scroll-area";
 import {
@@ -39,7 +40,9 @@ export function ClientsTable({ items }: ClientsTableProps) {
               </TableCell>
               <TableCell className="w-44 py-2">{`${item.firstName} ${item.lastName}`}</TableCell>
               <TableCell className="w-32 py-2">{item.email}</TableCell>
-              <TableCell className="w-24 py-2">{item.phoneNumber}</TableCell>
+              <TableCell className="w-24 py-2">
+                {formatPhoneNumber(item.phoneNumber)}
+              </TableCell>
               <TableCell className="w-16 py-2">{item.gender}</TableCell>
               <TableCell className="py-2">{`${item.city}/${item.state}`}</TableCell>
               <TableCell className="w-24 py-2">
