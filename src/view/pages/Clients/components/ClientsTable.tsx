@@ -1,5 +1,6 @@
 import type { Client } from "@/app/entities/Client";
 import { cn } from "@/app/lib/utils";
+import { formatGovId } from "@/app/utils/formatGovId";
 import { Badge } from "@/view/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/view/components/ui/scroll-area";
 import {
@@ -34,7 +35,7 @@ export function ClientsTable({ items }: ClientsTableProps) {
           {items.map((item) => (
             <TableRow key={item.uuid}>
               <TableCell className="w-32 py-2 font-medium">
-                {item.govId}
+                {formatGovId(item.govId)}
               </TableCell>
               <TableCell className="w-44 py-2">{`${item.firstName} ${item.lastName}`}</TableCell>
               <TableCell className="w-32 py-2">{item.email}</TableCell>
