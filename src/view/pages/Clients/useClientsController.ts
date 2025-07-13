@@ -8,7 +8,7 @@ export function useClientsController() {
   const [shouldShowRegisterClientForm, setShouldShowRegisterClientForm] =
     useState(false);
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const pageSearchParam = searchParams.get("page");
   const govIdSearchParam = searchParams.get("govId");
@@ -41,6 +41,12 @@ export function useClientsController() {
 
   function handleCloseRegisterClientForm() {
     setShouldShowRegisterClientForm(false);
+
+    setSearchParams((prevSearchParams) => {
+      prevSearchParams.delete("govId");
+
+      return prevSearchParams;
+    });
   }
 
   return {

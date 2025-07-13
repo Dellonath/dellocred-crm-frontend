@@ -1,3 +1,5 @@
+import { X } from "lucide-react";
+
 import { InputMask } from "@/view/components/InputMask";
 import { Button } from "@/view/components/ui/button";
 
@@ -5,16 +7,17 @@ import { useSearchClientFormController } from "./useSearchClientFormController";
 
 interface SearchClientFormProps {
   onSearch: () => void;
+  onClear: () => void;
 }
 
-export function SearchClientForm({ onSearch }: SearchClientFormProps) {
+export function SearchClientForm({ onSearch, onClear }: SearchClientFormProps) {
   const { register, handleSubmit, errors, isSubmitting } =
     useSearchClientFormController({
       onSearch
     });
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form onSubmit={handleSubmit} className="relative flex gap-2">
       <InputMask
         label="Digite o CPF do cliente"
         mask="DDD.DDD.DDD-DD"
@@ -25,6 +28,15 @@ export function SearchClientForm({ onSearch }: SearchClientFormProps) {
         labelClassName="bg-primary-foreground"
         {...register("govId")}
       />
+
+      <Button
+        type="button"
+        variant="ghost"
+        onClick={onClear}
+        className="hover:bg-primary-foreground absolute top-1.5 right-21 h-6"
+      >
+        <X className="size-4" />
+      </Button>
 
       <Button type="submit" disabled={isSubmitting}>
         Buscar
