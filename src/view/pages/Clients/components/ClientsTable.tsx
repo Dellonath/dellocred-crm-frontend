@@ -44,7 +44,7 @@ export function ClientsTable({ items }: ClientsTableProps) {
                 {formatPhoneNumber(item.phoneNumber)}
               </TableCell>
               <TableCell className="w-16 py-2">{item.gender}</TableCell>
-              <TableCell className="py-2">{`${item.city}/${item.state}`}</TableCell>
+              <TableCell className="py-2">{`${item.city ?? "---"}/${item.state ?? "---"}`}</TableCell>
               <TableCell className="w-24 py-2">
                 <Badge
                   className={cn(
