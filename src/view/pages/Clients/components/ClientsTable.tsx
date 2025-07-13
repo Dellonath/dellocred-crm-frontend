@@ -12,6 +12,11 @@ import {
   TableHeader,
   TableRow
 } from "@/view/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/view/components/ui/tooltip";
 
 interface ClientsTableProps {
   items: Client[];
@@ -36,7 +41,18 @@ export function ClientsTable({ items }: ClientsTableProps) {
           {items.map((item) => (
             <TableRow key={item.uuid}>
               <TableCell className="w-32 py-2 font-medium">
-                {formatGovId(item.govId)}
+                <Tooltip>
+                  <TooltipContent>Clique para copiar</TooltipContent>
+
+                  <TooltipTrigger
+                    className="cursor-pointer"
+                    onClick={() =>
+                      navigator.clipboard.writeText(formatGovId(item.govId))
+                    }
+                  >
+                    {formatGovId(item.govId)}
+                  </TooltipTrigger>
+                </Tooltip>
               </TableCell>
               <TableCell className="w-44 py-2">{`${item.firstName} ${item.lastName}`}</TableCell>
               <TableCell className="w-32 py-2">{item.email}</TableCell>
