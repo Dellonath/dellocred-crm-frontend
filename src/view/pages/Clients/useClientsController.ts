@@ -1,9 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { clientService } from "@/app/services/client";
 
 export function useClientsController() {
+  const [shouldShowRegisterClientForm, setShouldShowRegisterClientForm] =
+    useState(false);
+
   const [searchParams] = useSearchParams();
 
   const pageSearchParam = searchParams.get("page");
@@ -24,11 +28,20 @@ export function useClientsController() {
 
   const shouldShowClientData = hasClients && !isFetchingClients;
   const shouldShowEmptyView =
-    !isFetchingClients && !!govIdSearchParam && !hasClients;
-  const shouldShowRegisterClientForm =
-    !!govIdSearchParam && !isFetchingClients && !shouldShowEmptyView;
+    !isFetchingClients &&
+    !!govIdSearchParam &&
+    !hasClients &&
+    !shouldShowRegisterClientForm;
 
   const clients = clientsData?.clients || [];
+
+  function handleOpenRegisterClientForm() {
+    setShouldShowRegisterClientForm(true);
+  }
+
+  function handleCloseRegisterClientForm() {
+    setShouldShowRegisterClientForm(false);
+  }
 
   return {
     clients,
@@ -36,6 +49,8 @@ export function useClientsController() {
     shouldShowClientData,
     shouldShowRegisterClientForm,
     shouldShowEmptyView,
-    shouldShowPagination: clients.length > 10
+    shouldShowPagination: clients.length > 10,
+    handleOpenRegisterClientForm,
+    handleCloseRegisterClientForm
   };
 }

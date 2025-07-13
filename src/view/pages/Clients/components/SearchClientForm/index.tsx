@@ -3,9 +3,15 @@ import { Button } from "@/view/components/ui/button";
 
 import { useSearchClientFormController } from "./useSearchClientFormController";
 
-export function SearchClientForm() {
+interface SearchClientFormProps {
+  onSearch: () => void;
+}
+
+export function SearchClientForm({ onSearch }: SearchClientFormProps) {
   const { register, handleSubmit, errors, isSubmitting } =
-    useSearchClientFormController();
+    useSearchClientFormController({
+      onSearch
+    });
 
   return (
     <form onSubmit={handleSubmit} className="flex gap-2">

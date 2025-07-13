@@ -15,7 +15,13 @@ import { InputMask } from "@/view/components/InputMask";
 import { Select } from "@/view/components/Select";
 import { Button } from "@/view/components/ui/button";
 
-export function RegisterClientForm() {
+interface RegisterClientFormProps {
+  handleCloseRegisterClientForm: () => void;
+}
+
+export function RegisterClientForm({
+  handleCloseRegisterClientForm: _handleCloseRegisterClientForm
+}: RegisterClientFormProps) {
   return (
     <div>
       <h2 className="text-2xl">Registar novo cliente</h2>

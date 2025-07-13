@@ -14,7 +14,9 @@ export function Clients() {
     shouldShowLoadingElement,
     shouldShowRegisterClientForm,
     shouldShowEmptyView,
-    shouldShowPagination
+    shouldShowPagination,
+    handleOpenRegisterClientForm,
+    handleCloseRegisterClientForm
   } = useClientsController();
 
   return (
@@ -22,7 +24,7 @@ export function Clients() {
       <h2 className="text-center text-4xl">Gerenciar clientes</h2>
 
       <div className="bg-primary-foreground w-full space-y-6 rounded-xl px-4 py-5">
-        <SearchClientForm />
+        <SearchClientForm onSearch={handleOpenRegisterClientForm} />
 
         {shouldShowLoadingElement && (
           <div className="flex h-80 items-center justify-center">
@@ -43,7 +45,7 @@ export function Clients() {
                 Você pode tentar buscar por <strong>CPF</strong> ou{" "}
                 <span
                   role="button"
-                  onClick={() => alert("FOI!")}
+                  onClick={handleOpenRegisterClientForm}
                   className="cursor-pointer underline"
                 >
                   clicar aqui
@@ -54,7 +56,11 @@ export function Clients() {
           </div>
         )}
 
-        {shouldShowRegisterClientForm && <RegisterClientForm />}
+        {shouldShowRegisterClientForm && (
+          <RegisterClientForm
+            handleCloseRegisterClientForm={handleCloseRegisterClientForm}
+          />
+        )}
 
         {shouldShowClientData && <ClientsTable items={clients} />}
 
