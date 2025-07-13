@@ -11,10 +11,17 @@ interface SearchClientFormProps {
 }
 
 export function SearchClientForm({ onSearch, onClear }: SearchClientFormProps) {
-  const { register, handleSubmit, errors, isSubmitting } =
-    useSearchClientFormController({
-      onSearch
-    });
+  const {
+    register,
+    handleSubmit,
+    handleClearSearch,
+    errors,
+    isSubmitting,
+    shouldShowClearButton
+  } = useSearchClientFormController({
+    onSearch,
+    onClear
+  });
 
   return (
     <form onSubmit={handleSubmit} className="relative flex gap-2">
@@ -29,14 +36,16 @@ export function SearchClientForm({ onSearch, onClear }: SearchClientFormProps) {
         {...register("govId")}
       />
 
-      <Button
-        type="button"
-        variant="ghost"
-        onClick={onClear}
-        className="hover:bg-primary-foreground absolute top-1.5 right-21 h-6"
-      >
-        <X className="size-4" />
-      </Button>
+      {shouldShowClearButton && (
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={handleClearSearch}
+          className="hover:bg-primary-foreground absolute top-1.5 right-21 h-6"
+        >
+          <X className="size-4" />
+        </Button>
+      )}
 
       <Button type="submit" disabled={isSubmitting}>
         Buscar

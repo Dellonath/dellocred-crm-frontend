@@ -19,6 +19,7 @@ export function useClientsController() {
     queryKey: ["clients", currentPage, govIdSearchParam],
     queryFn: () =>
       clientService.getClients({
+        govId: govIdSearchParam ?? undefined,
         page: currentPage
       }),
     enabled: !govIdSearchParam
