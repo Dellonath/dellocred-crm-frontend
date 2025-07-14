@@ -15,12 +15,10 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 interface UseSearchClientFormControllerProps {
-  onSearch: () => void;
   onClear: () => void;
 }
 
 export function useSearchClientFormController({
-  onSearch,
   onClear
 }: UseSearchClientFormControllerProps) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,8 +45,6 @@ export function useSearchClientFormController({
 
       return prevSearchParams;
     });
-
-    onSearch();
   });
 
   function handleClearSearch() {

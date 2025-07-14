@@ -6,11 +6,10 @@ import { Button } from "@/view/components/ui/button";
 import { useSearchClientFormController } from "./useSearchClientFormController";
 
 interface SearchClientFormProps {
-  onSearch: () => void;
   onClear: () => void;
 }
 
-export function SearchClientForm({ onSearch, onClear }: SearchClientFormProps) {
+export function SearchClientForm({ onClear }: SearchClientFormProps) {
   const {
     register,
     handleSubmit,
@@ -19,7 +18,6 @@ export function SearchClientForm({ onSearch, onClear }: SearchClientFormProps) {
     isSubmitting,
     shouldShowClearButton
   } = useSearchClientFormController({
-    onSearch,
     onClear
   });
 

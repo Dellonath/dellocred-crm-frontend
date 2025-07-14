@@ -24,10 +24,7 @@ export function Clients() {
       <h2 className="text-center text-4xl">Gerenciar clientes</h2>
 
       <div className="bg-primary-foreground w-full space-y-6 rounded-xl px-4 py-5">
-        <SearchClientForm
-          onSearch={handleOpenRegisterClientForm}
-          onClear={handleCloseRegisterClientForm}
-        />
+        <SearchClientForm onClear={handleCloseRegisterClientForm} />
 
         {shouldShowLoadingElement && (
           <div className="flex h-80 items-center justify-center">
