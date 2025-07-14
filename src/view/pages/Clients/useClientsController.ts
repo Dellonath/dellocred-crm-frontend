@@ -21,8 +21,7 @@ export function useClientsController() {
       clientService.getClients({
         govId: govIdSearchParam ?? undefined,
         page: currentPage
-      }),
-    enabled: !govIdSearchParam
+      })
   });
 
   const hasClients = !!clientsData?.clients?.length;
