@@ -17,6 +17,7 @@ import {
   TooltipContent,
   TooltipTrigger
 } from "@/view/components/ui/tooltip";
+import { FaWhatsapp } from "react-icons/fa";
 
 interface ClientsTableProps {
   items: Client[];
@@ -42,8 +43,7 @@ export function ClientsTable({ items }: ClientsTableProps) {
             <TableRow key={item.uuid}>
               <TableCell className="w-32 py-2 font-medium">
                 <Tooltip>
-                  <TooltipContent>Clique para copiar</TooltipContent>
-
+                  <TooltipContent>Copiar</TooltipContent>
                   <TooltipTrigger
                     className="cursor-pointer"
                     onClick={() =>
@@ -58,9 +58,18 @@ export function ClientsTable({ items }: ClientsTableProps) {
               <TableCell className="w-32 py-2">{item.email}</TableCell>
               <TableCell className="w-24 py-2">
                 {formatPhoneNumber(item.phoneNumber)}
+                <a
+                  href={`https://wa.me/${item.phoneNumber.replace(/\D/g, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 text-primary underline"
+                  aria-label="Open WhatsApp"
+                >
+                  <FaWhatsapp className="text-green-500" />
+                </a>
               </TableCell>
               <TableCell className="w-16 py-2">{item.gender}</TableCell>
-              <TableCell className="py-2">{`${item.city ?? "---"}/${item.state ?? "---"}`}</TableCell>
+              <TableCell className="py-2">{`${item.city ?? "---"} - ${item.state?.toUpperCase() ?? "---"}`}</TableCell>
               <TableCell className="w-24 py-2">
                 <Badge
                   className={cn(
