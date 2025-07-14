@@ -27,7 +27,7 @@ export function useSearchClientFormController({
 
   const {
     register,
-    reset,
+    setValue,
     watch,
     handleSubmit: hookFormHandleSubmit,
     formState: { errors, isSubmitting }
@@ -48,7 +48,7 @@ export function useSearchClientFormController({
   });
 
   function handleClearSearch() {
-    reset();
+    setValue("govId", "");
     onClear();
   }
 
