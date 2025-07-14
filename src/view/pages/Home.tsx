@@ -1,4 +1,4 @@
-import dellocredIcon from "@/assets/dellocred-icon.png";
+import dellocredIcon from "@/assets/dellocred.icon-transparent-white.png";
 
 export function Home() {
   return (

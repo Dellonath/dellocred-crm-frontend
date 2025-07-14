@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-import dellocredIcon from "@/assets/dellocred-transparent.png";
+import dellocredIcon from "@/assets/dellocred.logo-transparent-white.png";
 
 import { Button } from "./ui/button";
 
