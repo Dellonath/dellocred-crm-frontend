@@ -23,7 +23,7 @@ export function Sidebar() {
           </li>
 
           <li>
-            <Link to="/clientes">
+            <Link to="/clients">
               <Button
                 variant="outline"
                 className="bg-primary-foreground w-full"
