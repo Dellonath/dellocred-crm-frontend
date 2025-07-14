@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { clientService } from "@/app/services/client";
@@ -48,6 +48,12 @@ export function useClientsController() {
       return prevSearchParams;
     });
   }
+
+  useEffect(() => {
+    if (!!govIdSearchParam && !hasClients && !isFetchingClients) {
+      setShouldShowRegisterClientForm(true);
+    }
+  }, [govIdSearchParam, hasClients, isFetchingClients]);
 
   return {
     clients,
