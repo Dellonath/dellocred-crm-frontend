@@ -2,6 +2,7 @@ import type { Client } from "@/app/entities/Client";
 import { cn } from "@/app/lib/utils";
 import { formatGovId } from "@/app/utils/formatGovId";
 import { formatPhoneNumber } from "@/app/utils/formatPhoneNumber";
+import WhatsAppIcon from "@/assets/whatsapp-logo.svg";
 import { Badge } from "@/view/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/view/components/ui/scroll-area";
 import {
@@ -17,7 +18,6 @@ import {
   TooltipContent,
   TooltipTrigger
 } from "@/view/components/ui/tooltip";
-import { FaWhatsapp } from "react-icons/fa";
 
 interface ClientsTableProps {
   items: Client[];
@@ -56,17 +56,21 @@ export function ClientsTable({ items }: ClientsTableProps) {
               </TableCell>
               <TableCell className="w-44 py-2">{`${item.firstName} ${item.lastName}`}</TableCell>
               <TableCell className="w-32 py-2">{item.email}</TableCell>
-              <TableCell className="w-24 py-2">
-                {formatPhoneNumber(item.phoneNumber)}
+              <TableCell className="flex w-44 items-center gap-2 py-2">
                 <a
                   href={`https://wa.me/${item.phoneNumber.replace(/\D/g, "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-2 text-primary underline"
+                  className="size-fit"
                   aria-label="Open WhatsApp"
                 >
-                  <FaWhatsapp className="text-green-500" />
+                  <img
+                    src={WhatsAppIcon}
+                    className="inline-block size-4 text-green-500"
+                  />
                 </a>
+
+                {formatPhoneNumber(item.phoneNumber)}
               </TableCell>
               <TableCell className="w-16 py-2">{item.gender}</TableCell>
               <TableCell className="py-2">{`${item.city ?? "---"} - ${item.state?.toUpperCase() ?? "---"}`}</TableCell>
