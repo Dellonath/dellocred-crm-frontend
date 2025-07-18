@@ -17,15 +17,21 @@ interface SelectProps {
     label: string;
     value: string;
   }[];
+  defaultValue?: string;
+  error?: string;
   containerClassName?: string;
   labelClassName?: string;
+  onValueChange?: (value: string) => void;
 }
 
 export function Select({
   label,
   options,
+  defaultValue,
+  error,
   containerClassName,
-  labelClassName
+  labelClassName,
+  onValueChange
 }: SelectProps) {
   const id = useId();
 
@@ -41,7 +47,7 @@ export function Select({
         {label}
       </label>
 
-      <ShadcnSelect>
+      <ShadcnSelect defaultValue={defaultValue} onValueChange={onValueChange}>
         <SelectTrigger id={id} className="w-full">
           <SelectValue placeholder="Selecione uma opção" />
         </SelectTrigger>
@@ -54,6 +60,8 @@ export function Select({
           ))}
         </SelectContent>
       </ShadcnSelect>
+
+      {!!error && <span className="text-xs text-red-400">{error}</span>}
     </div>
   );
 }
