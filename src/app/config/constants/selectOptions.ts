@@ -91,3 +91,8 @@ export const UTM_MEDIUM_OPTIONS: SelectOption[] = [
   { label: "Referência", value: "referral" },
   { label: "Social", value: "social" }
 ];
+
+export const CHANNEL_TYPE_OPTIONS: SelectOption[] = [
+  { label: "Online", value: "online" },
+  { label: "Offline", value: "offline" }
+];
