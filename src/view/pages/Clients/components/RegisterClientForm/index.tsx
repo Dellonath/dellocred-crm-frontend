@@ -24,10 +24,12 @@ interface RegisterClientFormProps {
 }
 
 export function RegisterClientForm({
-  handleCloseRegisterClientForm: _handleCloseRegisterClientForm
+  handleCloseRegisterClientForm
 }: RegisterClientFormProps) {
   const { register, handleSubmit, control, errors, isSubmitting } =
-    useRegisterClientFormController();
+    useRegisterClientFormController({
+      handleCloseRegisterClientForm
+    });
 
   return (
     <div>

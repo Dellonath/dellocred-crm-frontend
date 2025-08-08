@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 
 import type { UtmSource } from "@/app/entities/Client";
+import { queryClient } from "@/app/lib/tanstackQuery";
 import { clientService } from "@/app/services/client";
 
 const channelTypeSchema = z.union([z.literal("online"), z.literal("offline")]);
@@ -143,7 +144,13 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function useRegisterClientFormController() {
+interface UseRegisterClientFormControllerParams {
+  handleCloseRegisterClientForm: () => void;
+}
+
+export function useRegisterClientFormController({
+  handleCloseRegisterClientForm
+}: UseRegisterClientFormControllerParams) {
   const {
     register,
     handleSubmit: hookFormHandleSubmit,
@@ -165,6 +172,12 @@ export function useRegisterClientFormController() {
         utmSource: data.utmSource as UtmSource
       }
     });
+
+    queryClient.invalidateQueries({
+      queryKey: ["clients"]
+    });
+
+    handleCloseRegisterClientForm();
   });
 
   return {
