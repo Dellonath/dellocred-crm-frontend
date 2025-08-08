@@ -1,10 +1,10 @@
-type ChannelType = "online" | "offline";
+export type ChannelType = "online" | "offline";
 
-type Gender = "m" | "f";
+export type Gender = "m" | "f";
 
-type MaritialStatus = "single" | "married" | "divorced" | "windowed";
+export type MaritialStatus = "single" | "married" | "divorced" | "windowed";
 
-type EducationLevel =
+export type EducationLevel =
   | "primary"
   | "secondary"
   | "high_school"
@@ -12,13 +12,18 @@ type EducationLevel =
   | "master"
   | "doctorate";
 
-type ClientSector = "private" | "public";
+export type ClientSector = "private" | "public";
 
-type UtmSource = "google" | "facebook" | "instagram" | "email" | "direct";
+export type UtmSource =
+  | "google"
+  | "facebook"
+  | "instagram"
+  | "email"
+  | "direct";
 
-type UtmMedium = "cpc" | "organic" | "social" | "email" | "referral";
+export type UtmMedium = "cpc" | "organic" | "social" | "email" | "referral";
 
-type State =
+export type State =
   | "ac"
   | "ap"
   | "am"

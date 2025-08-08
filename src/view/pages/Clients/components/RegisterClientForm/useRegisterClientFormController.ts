@@ -1,6 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import z from "zod";
+
+import type { UtmSource } from "@/app/entities/Client";
+import { clientService } from "@/app/services/client";
 
 const channelTypeSchema = z.union([z.literal("online"), z.literal("offline")]);
 
@@ -104,8 +108,8 @@ const schema = z.object({
         .replace("-", "");
       return withoutChars;
     }),
-  channelType: channelTypeSchema.optional(),
-  birthDate: z.coerce.date().optional(),
+  channelType: channelTypeSchema,
+  birthDate: z.string().optional(),
   gender: genderSchema.optional(),
   occupation: z.string().optional(),
   maritialStatus: maritialStatusSchema.optional(),
@@ -149,8 +153,18 @@ export function useRegisterClientFormController() {
     resolver: zodResolver(schema)
   });
 
+  const { mutateAsync: registerClientFn } = useMutation({
+    mutationFn: clientService.registerClient
+  });
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
-    console.log(data);
+    await registerClientFn({
+      client: {
+        ...data,
+        wage: data.wage ? Number(data.wage.replace(/\D/g, "")) : undefined,
+        utmSource: data.utmSource as UtmSource
+      }
+    });
   });
 
   return {
