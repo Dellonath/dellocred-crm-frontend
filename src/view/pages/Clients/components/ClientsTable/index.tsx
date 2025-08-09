@@ -55,7 +55,7 @@ export function ClientsTable({ items }: ClientsTableProps) {
                   <TooltipContent>Copiar</TooltipContent>
                   <TooltipTrigger
                     className="cursor-pointer"
-                    onClick={(e) => handleCopyGovId(e, formatGovId(item.govId))}
+                    onClick={(e) => handleCopyGovId(e, item.govId)}
                   >
                     {formatGovId(item.govId)}
                   </TooltipTrigger>
