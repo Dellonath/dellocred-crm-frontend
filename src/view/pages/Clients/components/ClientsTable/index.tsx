@@ -19,11 +19,16 @@ import {
   TooltipTrigger
 } from "@/view/components/ui/tooltip";
 
+import { useClientsTableController } from "./useClientsTableController";
+
 interface ClientsTableProps {
   items: Client[];
 }
 
 export function ClientsTable({ items }: ClientsTableProps) {
+  const { handleNavigateToClient, handleCopyGovId } =
+    useClientsTableController();
+
   return (
     <ScrollArea>
       <Table className="w-full max-w-full min-w-4xl">
@@ -38,17 +43,19 @@ export function ClientsTable({ items }: ClientsTableProps) {
             <TableHead className="h-9 w-24 py-2">Status</TableHead>
           </TableRow>
         </TableHeader>
+
         <TableBody>
           {items.map((item) => (
-            <TableRow key={item.uuid}>
+            <TableRow
+              key={item.uuid}
+              onClick={() => handleNavigateToClient(item.govId)}
+            >
               <TableCell className="w-32 py-2 font-medium">
                 <Tooltip>
                   <TooltipContent>Copiar</TooltipContent>
                   <TooltipTrigger
                     className="cursor-pointer"
-                    onClick={() =>
-                      navigator.clipboard.writeText(formatGovId(item.govId))
-                    }
+                    onClick={(e) => handleCopyGovId(e, formatGovId(item.govId))}
                   >
                     {formatGovId(item.govId)}
                   </TooltipTrigger>
