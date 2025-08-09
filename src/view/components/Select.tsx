@@ -17,6 +17,7 @@ interface SelectProps {
     label: string;
     value: string;
   }[];
+  value?: string;
   defaultValue?: string;
   error?: string;
   containerClassName?: string;
@@ -27,6 +28,7 @@ interface SelectProps {
 export function Select({
   label,
   options,
+  value,
   defaultValue,
   error,
   containerClassName,
@@ -47,7 +49,11 @@ export function Select({
         {label}
       </label>
 
-      <ShadcnSelect defaultValue={defaultValue} onValueChange={onValueChange}>
+      <ShadcnSelect
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+      >
         <SelectTrigger id={id} className="w-full">
           <SelectValue placeholder="Selecione uma opção" />
         </SelectTrigger>
