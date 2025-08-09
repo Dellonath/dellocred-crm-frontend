@@ -1,7 +1,7 @@
 import { useClientController } from "./useClientController";
 
 export function Client() {
-  const { govId } = useClientController();
+  const { client } = useClientController();
 
-  return <h2>Esse é o CPF do cliente: {govId}</h2>;
+  return <pre>{JSON.stringify(client, null, 2)}</pre>;
 }
