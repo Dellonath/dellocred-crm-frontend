@@ -6,7 +6,7 @@ import { clientService } from "@/app/services/client";
 export function useClientController() {
   const { govId } = useParams<{ govId: string }>();
 
-  const { data } = useQuery({
+  const { data, isFetching: isLoading } = useQuery({
     queryKey: ["client", govId],
     queryFn: async () =>
       clientService.getClientByGovId({
@@ -16,6 +16,7 @@ export function useClientController() {
   });
 
   return {
+    isLoading,
     client: data?.client
   };
 }
