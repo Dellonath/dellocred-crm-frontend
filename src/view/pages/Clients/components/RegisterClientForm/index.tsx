@@ -26,10 +26,16 @@ interface RegisterClientFormProps {
 export function RegisterClientForm({
   handleCloseRegisterClientForm
 }: RegisterClientFormProps) {
-  const { register, handleSubmit, control, errors, isSubmitting } =
-    useRegisterClientFormController({
-      handleCloseRegisterClientForm
-    });
+  const {
+    register,
+    handleSubmit,
+    handleGetAddressByPostalCode,
+    control,
+    errors,
+    isSubmitting
+  } = useRegisterClientFormController({
+    handleCloseRegisterClientForm
+  });
 
   return (
     <div>
@@ -208,6 +214,7 @@ export function RegisterClientForm({
               labelClassName="bg-primary-foreground"
               error={errors.postalCode?.message}
               {...register("postalCode")}
+              onBlur={(e) => handleGetAddressByPostalCode(e.target.value)}
             />
 
             <Input
@@ -228,10 +235,11 @@ export function RegisterClientForm({
             <Controller
               control={control}
               name="state"
-              render={({ field: { onChange } }) => (
+              render={({ field: { value, onChange } }) => (
                 <Select
                   label="Estado"
                   options={STATES_OPTIONS}
+                  value={value}
                   onValueChange={onChange}
                   error={errors.state?.message}
                   containerClassName="w-full max-w-48"

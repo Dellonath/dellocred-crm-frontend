@@ -5,6 +5,7 @@ import z from "zod";
 
 import type { UtmSource } from "@/app/entities/Client";
 import { queryClient } from "@/app/lib/tanstackQuery";
+import { addressService } from "@/app/services/address";
 import { clientService } from "@/app/services/client";
 
 const channelTypeSchema = z.union([z.literal("online"), z.literal("offline")]);
@@ -142,6 +143,7 @@ const schema = z.object({
   isActive: z.boolean().optional()
 });
 
+type State = z.infer<typeof stateSchema>;
 type FormData = z.infer<typeof schema>;
 
 interface UseRegisterClientFormControllerParams {
@@ -153,6 +155,7 @@ export function useRegisterClientFormController({
 }: UseRegisterClientFormControllerParams) {
   const {
     register,
+    setValue,
     handleSubmit: hookFormHandleSubmit,
     control,
     formState: { errors, isSubmitting }
@@ -180,9 +183,38 @@ export function useRegisterClientFormController({
     handleCloseRegisterClientForm();
   });
 
+  async function handleGetAddressByPostalCode(postalCode: string) {
+    try {
+      if (!!postalCode && postalCode.length < 9) {
+        return;
+      }
+
+      const { data } = await addressService.getAddressByPostalCode({
+        postalCode: postalCode.replace("-", "")
+      });
+
+      const {
+        localidade: city,
+        uf: state,
+        bairro: neighborhood,
+        logradouro: street,
+        complemento: complement
+      } = data;
+
+      setValue("city", city);
+      setValue("state", state.toLowerCase() as State);
+      setValue("addressNeighborhood", neighborhood);
+      setValue("addressStreet", street);
+      setValue("addressComplement", complement);
+    } catch {
+      console.log("Do nothing");
+    }
+  }
+
   return {
     register,
     handleSubmit,
+    handleGetAddressByPostalCode,
     control,
     errors,
     isSubmitting
