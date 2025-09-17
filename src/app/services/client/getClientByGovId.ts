@@ -8,6 +8,8 @@ interface GetClientByGovIdParams {
 export async function getClientByGovId({ govId }: GetClientByGovIdParams) {
   const { data } = await httpClient.get<Client>(`/clients/${govId}`);
 
+  console.log("data", data);
+
   return {
     client: data
   };

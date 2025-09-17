@@ -22,10 +22,10 @@ import {
 import { useClientsTableController } from "./useClientsTableController";
 
 interface ClientsTableProps {
-  items: Client[];
+  clients: Client[];
 }
 
-export function ClientsTable({ items }: ClientsTableProps) {
+export function ClientsTable({ clients }: ClientsTableProps) {
   const { handleNavigateToClient, handleCopyGovId } =
     useClientsTableController();
 
@@ -45,7 +45,7 @@ export function ClientsTable({ items }: ClientsTableProps) {
         </TableHeader>
 
         <TableBody>
-          {items.map((item) => (
+          {clients.map((item) => (
             <TableRow
               key={item.uuid}
               onClick={() => handleNavigateToClient(item.govId)}

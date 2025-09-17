@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router";
 import { z } from "zod";
 
-import { formatGovId } from "@/app/utils/formatGovId";
+import type { Client } from "@/app/entities/Client";
+import { clientService } from "@/app/services/client";
 
 const schema = z.object({
   govId: z
@@ -16,39 +17,49 @@ type FormData = z.infer<typeof schema>;
 
 interface UseSearchClientFormControllerProps {
   onClear: () => void;
+  onClientFound: (client: Client) => void;
+  onClientNotFound: () => void;
 }
 
 export function useSearchClientFormController({
-  onClear
+  onClear,
+  onClientFound,
+  onClientNotFound
 }: UseSearchClientFormControllerProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const govIdSearchParam = searchParams.get("govId");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
 
   const {
     register,
     setValue,
     watch,
     handleSubmit: hookFormHandleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors }
   } = useForm<FormData>({
-    defaultValues: {
-      govId: govIdSearchParam ? formatGovId(govIdSearchParam) : undefined
-    },
     resolver: zodResolver(schema)
   });
 
   const handleSubmit = hookFormHandleSubmit(async (data) => {
-    setSearchParams((prevSearchParams) => {
-      prevSearchParams.delete("page");
-      prevSearchParams.set("govId", data.govId);
+    setIsSearching(true);
+    setSearchError(null);
 
-      return prevSearchParams;
-    });
+    try {
+      const result = await clientService.getClientByGovId({
+        govId: data.govId
+      });
+      onClientFound(result.client);
+    } catch (error) {
+      setSearchError("Cliente não encontrado");
+      onClientNotFound();
+      console.error("Erro ao buscar cliente:", error);
+    } finally {
+      setIsSearching(false);
+    }
   });
 
   function handleClearSearch() {
     setValue("govId", "");
+    setSearchError(null);
     onClear();
   }
 
@@ -59,7 +70,8 @@ export function useSearchClientFormController({
     handleSubmit,
     handleClearSearch,
     errors,
-    isSubmitting,
+    isSearching,
+    searchError,
     shouldShowClearButton
   };
 }

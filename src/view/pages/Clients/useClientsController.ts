@@ -2,11 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
+import type { Client } from "@/app/entities/Client";
 import { clientService } from "@/app/services/client";
 
 export function useClientsController() {
   const [shouldShowRegisterClientForm, setShouldShowRegisterClientForm] =
     useState(false);
+  const [searchedClient, setSearchedClient] = useState<Client | null>(null);
+  const [clientNotFound, setClientNotFound] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -19,7 +22,6 @@ export function useClientsController() {
     queryKey: ["clients", currentPage, govIdSearchParam],
     queryFn: () =>
       clientService.getClients({
-        govId: govIdSearchParam ?? undefined,
         page: currentPage
       })
   });
@@ -41,12 +43,24 @@ export function useClientsController() {
 
   function handleCloseRegisterClientForm() {
     setShouldShowRegisterClientForm(false);
+    setSearchedClient(null);
+    setClientNotFound(false);
 
     setSearchParams((prevSearchParams) => {
       prevSearchParams.delete("govId");
 
       return prevSearchParams;
     });
+  }
+
+  function handleClientFound(client: Client) {
+    setSearchedClient(client);
+    setClientNotFound(false);
+  }
+
+  function handleClientNotFound() {
+    setClientNotFound(true);
+    setSearchedClient(null);
   }
 
   useEffect(() => {
@@ -57,12 +71,16 @@ export function useClientsController() {
 
   return {
     clients,
+    searchedClient,
+    clientNotFound,
     shouldShowLoadingElement: isFetchingClients,
     shouldShowClientData,
     shouldShowRegisterClientForm,
     shouldShowEmptyView,
     shouldShowPagination: clients.length > 10,
     handleOpenRegisterClientForm,
-    handleCloseRegisterClientForm
+    handleCloseRegisterClientForm,
+    handleClientFound,
+    handleClientNotFound
   };
 }

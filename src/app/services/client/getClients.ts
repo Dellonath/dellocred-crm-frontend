@@ -3,24 +3,21 @@ import { httpClient } from "@/app/lib/axios";
 
 interface GetClientsParams {
   status?: "all" | "active" | "inactive";
-  govId?: string;
   page?: number;
 }
 
 export async function getClients({
   status = "all",
-  govId,
   page = 1
 }: GetClientsParams) {
-  const { data } = await httpClient.get<Client[]>("/clients", {
+  const { data } = await httpClient.get<{ clients: Client[] }>("/clients/actives", {
     params: {
       status,
-      govId,
       page
     }
   });
 
   return {
-    clients: data
+    clients: data.clients
   };
 }
