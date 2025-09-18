@@ -49,7 +49,6 @@ export function useSearchClientFormController({
       });
       onClientFound(result.client);
     } catch (error) {
-      setSearchError("Cliente não encontrado");
       onClientNotFound();
       console.error("Erro ao buscar cliente:", error);
     } finally {
